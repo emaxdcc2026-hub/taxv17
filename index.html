@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tax Converter" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <link id="manifestLink" rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <title>TAX REFUND AND CURRENCY CONVERTER</title>
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS, FROSTED-GLASS THEME & CUSTOM BACKGROUND SUPPORT
+       ========================================================================== */
+    :root {
+      --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --bg-base: #f8fafc;
+      --card-bg: rgba(255, 255, 255, 0.86);
+      --card-border: rgba(15, 23, 42, 0.11);
+      --card-shadow: 0 22px 50px rgba(15, 23, 42, 0.12), 0 4px 14px rgba(15, 23, 42, 0.06);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --surface-box: rgba(241, 245, 249, 0.88);
+      --surface-box-border: rgba(15, 23, 42, 0.09);
+      --surface-refund: rgba(79, 70, 229, 0.09);
+      --surface-refund-border: rgba(79, 70, 229, 0.25);
+      --surface-esaad: rgba(14, 165, 233, 0.09);
+      --surface-esaad-border: rgba(14, 165, 233, 0.25);
+      --surface-tile: rgba(255, 255, 255, 0.84);
+      --surface-tile-hover: rgba(255, 255, 255, 0.98);
+      --surface-tile-border: rgba(15, 23, 42, 0.09);
+      --surface-tile-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --input-bg: rgba(255, 255, 255, 0.95);
+      --input-border: rgba(79, 70, 229, 0.28);
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.14);
+      --success: #059669;
+      --danger: #dc2626;
+      --danger-soft: rgba(220, 38, 38, 0.14);
+      --calc-grad: linear-gradient(135deg, #4f46e5 0%, #6366f1 55%, #0ea5e9 100%);
+      --calc-shadow: 0 5px 14px rgba(79, 70, 229, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      --calc-shadow-hover: 0 7px 18px rgba(79, 70, 229, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      --numpad-well-bg: linear-gradient(180deg, rgba(226, 232, 240, 0.86) 0%, rgba(203, 213, 225, 0.78) 100%);
+      --numpad-well-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.14), 0 1px 0 rgba(255, 255, 255, 0.75);
+      --key-face-grad: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+      --key-emboss-shadow:
+        0 3px 0 #cbd5e1,
+        0 5px 8px rgba(15, 23, 42, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      --key-emboss-hover:
+        0 4px 0 #94a3b8,
+        0 6px 11px rgba(15, 23, 42, 0.18),
+        inset 0 1px 0 #ffffff;
+      --key-emboss-pressed:
+        0 1px 0 #cbd5e1,
+        0 2px 4px rgba(15, 23, 42, 0.16),
+        inset 0 2px 4px rgba(15, 23, 42, 0.14);
+      --key-text-emboss: 0 1px 0 rgba(255, 255, 255, 0.9);
+      --key-action-grad: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%);
+      --key-action-shadow:
+        0 3px 0 #a5b4fc,
+        0 5px 8px rgba(79, 70, 229, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --key-action-pressed:
+        0 1px 0 #a5b4fc,
+        0 2px 4px rgba(79, 70, 229, 0.18),
+        inset 0 2px 4px rgba(79, 70, 229, 0.16);
+      --key-clear-grad: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%);
+      --key-clear-shadow:
+        0 3px 0 #fca5a5,
+        0 5px 8px rgba(220, 38, 38, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      --key-clear-pressed:
+        0 1px 0 #fca5a5,
+        0 2px 4px rgba(220, 38, 38, 0.18),
+        inset 0 2px 4px rgba(220, 38, 38, 0.16);
+      --overlay-bg: rgba(255, 255, 255, 0.96);
+      --scrim-bg: rgba(2, 6, 23, 0.56);
+      --radius-card: 24px;
+      --radius-box: 10px;
+      --radius-pill: 9999px;
+      --custom-bg-image: none;
+    }
+
+    body.has-bg,
+    #appShell.has-bg,
+    #appCard.has-bg {
+      --card-bg: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --card-shadow: 0 24px 60px rgba(2, 6, 23, 0.55);
+      --text-primary: #f8fafc;
+      --text-secondary: #e2e8f0;
+      --text-muted: #cbd5e1;
+      --surface-box: rgba(15, 23, 42, 0.72);
+      --surface-box-border: rgba(255, 255, 255, 0.15);
+      --surface-refund: rgba(79, 70, 229, 0.36);
+      --surface-refund-border: rgba(165, 180, 252, 0.4);
+      --surface-esaad: rgba(14, 165, 233, 0.30);
+      --surface-esaad-border: rgba(125, 211, 252, 0.38);
+      --surface-tile: rgba(15, 23, 42, 0.72);
+      --surface-tile-hover: rgba(30, 41, 59, 0.88);
+      --surface-tile-border: rgba(255, 255, 255, 0.14);
+      --surface-tile-shadow: 0 2px 6px rgba(2, 6, 23, 0.25);
+      --input-bg: rgba(15, 23, 42, 0.84);
+      --input-border: rgba(129, 140, 248, 0.42);
+      --accent: #818cf8;
+      --accent-soft: rgba(129, 140, 248, 0.24);
+      --success: #34d399;
+      --danger: #f87171;
+      --danger-soft: rgba(248, 113, 113, 0.22);
+      --numpad-well-bg: rgba(15, 23, 42, 0.74);
+      --numpad-well-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.1);
+      --key-face-grad: linear-gradient(180deg, rgba(51, 65, 85, 0.96) 0%, rgba(30, 41, 59, 0.98) 100%);
+      --key-emboss-shadow:
+        0 3px 0 #090d16,
+        0 5px 10px rgba(0, 0, 0, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      --key-emboss-hover:
+        0 4px 0 #020617,
+        0 7px 14px rgba(0, 0, 0, 0.56),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      --key-emboss-pressed:
+        0 1px 0 #090d16,
+        0 2px 4px rgba(0, 0, 0, 0.45),
+        inset 0 2px 5px rgba(0, 0, 0, 0.55);
+      --key-text-emboss: 0 1px 1px rgba(0, 0, 0, 0.7);
+      --key-action-grad: linear-gradient(180deg, rgba(67, 56, 202, 0.92) 0%, rgba(49, 46, 129, 0.96) 100%);
+      --key-action-shadow:
+        0 3px 0 #1e1b4b,
+        0 5px 10px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(199, 210, 254, 0.32);
+      --key-action-pressed:
+        0 1px 0 #1e1b4b,
+        0 2px 4px rgba(0, 0, 0, 0.45),
+        inset 0 2px 5px rgba(0, 0, 0, 0.5);
+      --key-clear-grad: linear-gradient(180deg, rgba(153, 27, 27, 0.92) 0%, rgba(127, 29, 29, 0.96) 100%);
+      --key-clear-shadow:
+        0 3px 0 #450a0a,
+        0 5px 10px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(254, 202, 202, 0.3);
+      --key-clear-pressed:
+        0 1px 0 #450a0a,
+        0 2px 4px rgba(0, 0, 0, 0.45),
+        inset 0 2px 5px rgba(0, 0, 0, 0.5);
+      --overlay-bg: rgba(15, 23, 42, 0.94);
+    }
+
+    /* ==========================================================================
+       2. STRICT SINGLE-VIEWPORT FIT (100dvh, overflow: hidden, zero clipping)
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body,
+    #appShell {
+      width: 100%;
+      height: 100dvh;
+      min-height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-base);
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      position: relative;
+      user-select: none;
+    }
+
+    #appShell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8fafc;
+      background-image: var(--custom-bg-image);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    #appShell.has-bg::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.34);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #appCard {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      height: min(920px, calc(100dvh - 16px));
+      max-height: calc(100dvh - 16px);
+      border-radius: var(--radius-card);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 5px;
+      overflow: hidden;
+      background-color: var(--card-bg);
+      background-image: var(--custom-bg-image);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    #appCard.has-bg .input-box,
+    #appCard.has-bg .refund-box,
+    #appCard.has-bg .esaad-box,
+    #appCard.has-bg .installment-tile,
+    #appCard.has-bg .currency-tile,
+    #appCard.has-bg #numpad,
+    #appCard.has-bg .icon-btn,
+    #appCard.has-bg .mini-action-btn {
+      background-color: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+    }
+
+    @media (max-width: 600px) {
+      #appCard {
+        width: 100%;
+        max-width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+        border: none;
+        padding: calc(7px + env(safe-area-inset-top, 0px)) calc(9px + env(safe-area-inset-right, 0px)) calc(7px + env(safe-area-inset-bottom, 0px)) calc(9px + env(safe-area-inset-left, 0px));
+        gap: 4px;
+        overflow: hidden;
+      }
+    }
+
+    /* ==========================================================================
+       3. HEADER BAR
+       ========================================================================== */
+    .app-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 6px;
+      flex: 0 0 auto;
+      min-height: 24px;
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      white-space: nowrap;
+    }
+
+    .live-pill.is-syncing {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .live-pill.is-fallback {
+      background: rgba(245, 158, 11, 0.16);
+      color: #d97706;
+      border-color: rgba(245, 158, 11, 0.32);
+    }
+
+    .has-bg .live-pill.is-fallback {
+      color: #fbbf24;
+    }
+
+    .live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .app-title {
+      font-size: clamp(0.64rem, 2.25vw, 0.78rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: var(--text-primary);
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .icon-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      border: 1px solid var(--surface-box-border);
+      background: var(--surface-box);
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-tile-hover);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.94);
+    }
+
+    /* ==========================================================================
+       4. INPUT AED, TAX REFUND & ESAAD / FAZAA BOXES
+       ========================================================================== */
+    .top-summary-row {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+
+    .input-box,
+    .refund-box,
+    .esaad-box {
+      border-radius: var(--radius-box);
+      padding: 4px 7px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .input-box {
+      background: var(--surface-box);
+      border: 1px solid var(--input-border);
+    }
+
+    .refund-box {
+      background: var(--surface-refund);
+      border: 1px solid var(--surface-refund-border);
+    }
+
+    .esaad-box {
+      background: var(--surface-esaad);
+      border: 1px solid var(--surface-esaad-border);
+      flex: 0 0 auto;
+      padding: 4px 8px;
+    }
+
+    .box-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .box-label {
+      font-size: 0.56rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .box-sub {
+      font-size: 0.52rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .aed-input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: clamp(0.95rem, 3.4vw, 1.18rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.15;
+      outline: none;
+      padding: 1px 0;
+    }
+
+    .box-value-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .box-value {
+      font-size: clamp(0.88rem, 3vw, 1.08rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .refund-box .box-value {
+      color: var(--accent);
+    }
+
+    .esaad-box .box-value {
+      color: #0284c7;
+    }
+
+    .has-bg .esaad-box .box-value {
+      color: #38bdf8;
+    }
+
+    .currency-tag {
+      font-size: 0.56rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* ==========================================================================
+       5. 3x2 RECURRING INSTALLMENT GRID (NO FORMULAS SHOWN ON TILES)
+       Row 1: 3 mnth | 6 mnth
+       Row 2: 9 mnth | 12 mnth
+       Row 3: 4 mnth | 8 mnth
+       ========================================================================== */
+    .installments-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      flex: 0 0 auto;
+    }
+
+    .installment-tile {
+      background: var(--surface-tile);
+      border: 1px solid var(--surface-tile-border);
+      box-shadow: var(--surface-tile-shadow);
+      border-radius: 9px;
+      padding: 3px 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .installment-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .installment-amount {
+      font-size: clamp(0.72rem, 2.35vw, 0.84rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       6. UTILITY TOOLBAR (POP-UP CALCULATOR & INQUIRY LOG ACTIONS)
+       ========================================================================== */
+    .utility-bar {
+      display: grid;
+      grid-template-columns: 1.25fr auto auto;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+
+    .calc-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 5px 8px;
+      background: var(--calc-grad);
+      box-shadow: var(--calc-shadow);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .calc-btn:hover {
+      box-shadow: var(--calc-shadow-hover);
+    }
+
+    .calc-btn:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .mini-action-btn {
+      border: 1px solid var(--surface-box-border);
+      border-radius: 10px;
+      padding: 5px 8px;
+      background: var(--surface-box);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.64rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .mini-action-btn:hover {
+      background: var(--surface-tile-hover);
+    }
+
+    .mini-action-btn:active {
+      transform: scale(0.96);
+    }
+
+    .log-badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: var(--radius-pill);
+      padding: 0 5px;
+      font-size: 0.56rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ==========================================================================
+       7. 16-COUNTRY CURRENCY CONVERSION GRID (~10% COMPACT SCALED TILES)
+       ========================================================================== */
+    .currency-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 3px;
+      flex: 0 0 auto;
+    }
+
+    .currency-tile {
+      background: var(--surface-tile);
+      border: 1px solid var(--surface-tile-border);
+      box-shadow: var(--surface-tile-shadow);
+      border-radius: 7px;
+      padding: 2.5px 4.5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .currency-tile:hover {
+      background: var(--surface-tile-hover);
+      border-color: var(--accent);
+    }
+
+    .currency-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px;
+      line-height: 1.05;
+    }
+
+    .currency-flag {
+      font-size: 0.62rem;
+      line-height: 1;
+    }
+
+    .currency-code {
+      font-size: 0.54rem;
+      font-weight: 800;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    .currency-val {
+      font-size: clamp(0.60rem, 1.85vw, 0.70rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       8. 3D EMBOSSED NUMPAD
+       ========================================================================== */
+    #numpad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 6px;
+      border-radius: 14px;
+      background: var(--numpad-well-bg);
+      box-shadow: var(--numpad-well-shadow);
+      border: 1px solid var(--surface-box-border);
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .num-key {
+      border: none;
+      border-radius: 10px;
+      background: var(--key-face-grad);
+      box-shadow: var(--key-emboss-shadow);
+      color: var(--text-primary);
+      text-shadow: var(--key-text-emboss);
+      font-family: var(--font-sans);
+      font-size: clamp(0.92rem, 3.2vw, 1.15rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.07s ease, box-shadow 0.08s ease;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .num-key:hover {
+      box-shadow: var(--key-emboss-hover);
+    }
+
+    .num-key:active,
+    .num-key.is-pressed {
+      transform: translateY(2px);
+      box-shadow: var(--key-emboss-pressed);
+    }
+
+    .num-key.key-action {
+      background: var(--key-action-grad);
+      box-shadow: var(--key-action-shadow);
+      color: var(--accent);
+      font-size: clamp(0.76rem, 2.5vw, 0.92rem);
+    }
+
+    .num-key.key-action:active,
+    .num-key.key-action.is-pressed {
+      box-shadow: var(--key-action-pressed);
+    }
+
+    .num-key.key-clear {
+      background: var(--key-clear-grad);
+      box-shadow: var(--key-clear-shadow);
+      color: var(--danger);
+      font-size: clamp(0.76rem, 2.5vw, 0.92rem);
+    }
+
+    .num-key.key-clear:active,
+    .num-key.key-clear.is-pressed {
+      box-shadow: var(--key-clear-pressed);
+    }
+
+    /* ==========================================================================
+       9. MODALS / DRAWERS (POP-UP CALCULATOR, INQUIRY LOG & SETTINGS)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: var(--scrim-bg);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal-sheet {
+      width: 100%;
+      max-width: 390px;
+      max-height: 88dvh;
+      overflow-y: auto;
+      border-radius: 20px;
+      padding: 14px;
+      background: var(--overlay-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 24px 64px rgba(2, 6, 23, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .modal-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .close-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--surface-box-border);
+      background: var(--surface-box);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calc-screen {
+      background: var(--surface-box);
+      border: 1px solid var(--surface-box-border);
+      border-radius: 12px;
+      padding: 8px 10px;
+      text-align: right;
+    }
+
+    .calc-expr {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      min-height: 16px;
+      font-variant-numeric: tabular-nums;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .calc-display {
+      font-size: 1.35rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .calc-pad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .calc-key {
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background: var(--key-face-grad);
+      box-shadow: var(--key-emboss-shadow);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .calc-key:active {
+      transform: translateY(2px);
+      box-shadow: var(--key-emboss-pressed);
+    }
+
+    .calc-key.op {
+      background: var(--key-action-grad);
+      box-shadow: var(--key-action-shadow);
+      color: var(--accent);
+    }
+
+    .calc-key.eq {
+      background: var(--calc-grad);
+      color: #ffffff;
+      box-shadow: var(--calc-shadow);
+    }
+
+    .modal-primary-btn {
+      width: 100%;
+      border: none;
+      border-radius: 11px;
+      padding: 9px 12px;
+      background: var(--calc-grad);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .modal-secondary-btn {
+      border: 1px solid var(--surface-box-border);
+      border-radius: 11px;
+      padding: 8px 10px;
+      background: var(--surface-box);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .modal-danger-btn {
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      border-radius: 11px;
+      padding: 8px 10px;
+      background: var(--danger-soft);
+      color: var(--danger);
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .inquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field-input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--surface-box-border);
+      background: var(--input-bg);
+      color: var(--text-primary);
+      padding: 7px 9px;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      outline: none;
+    }
+
+    .log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 210px;
+      overflow-y: auto;
+    }
+
+    .log-item {
+      border: 1px solid var(--surface-box-border);
+      background: var(--surface-box);
+      border-radius: 10px;
+      padding: 7px 9px;
+      font-size: 0.68rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .log-meta {
+      color: var(--text-muted);
+      font-size: 0.60rem;
+    }
+
+    .setting-section {
+      border: 1px solid var(--surface-box-border);
+      background: var(--surface-box);
+      border-radius: 12px;
+      padding: 9px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.72rem;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .status-banner {
+      font-size: 0.68rem;
+      padding: 6px 9px;
+      border-radius: 9px;
+      background: var(--accent-soft);
+      color: var(--text-primary);
+      display: none;
+    }
+
+    .status-banner.is-visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="appShell">
+    <main id="appCard" aria-label="Tax Refund and Currency Converter">
+      <!-- Header -->
+      <header class="app-header">
+        <div id="rateStatusPill" class="live-pill is-syncing" title="Live exchange rates refresh every 5 seconds">
+          <span class="live-dot"></span>
+          <span id="rateStatusText">5s SYNC</span>
+        </div>
+        <h1 class="app-title">TAX REFUND AND CURRENCY CONVERTER</h1>
+        <div class="header-actions">
+          <button id="openSettingsBtn" class="icon-btn" type="button" title="Settings & Background" aria-label="Settings">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Primary AED Input & Tax Refund Box -->
+      <section class="top-summary-row" aria-label="Amount and Tax Refund">
+        <div class="input-box">
+          <div class="box-label-row">
+            <label for="valueInput" class="box-label">Amount (AED)</label>
+            <span class="box-sub">INPUT</span>
+          </div>
+          <input id="valueInput" class="aed-input" type="text" inputmode="none" value="1000" aria-label="Amount in AED" />
+        </div>
+
+        <div class="refund-box">
+          <div class="box-label-row">
+            <span class="box-label">Tax Refund</span>
+            <span class="box-sub">5% × 81%</span>
+          </div>
+          <div class="box-value-row">
+            <span id="taxRefundValue" class="box-value">40.50</span>
+            <span class="currency-tag">AED</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Esaad / Fazaa Display Box (inputAED * 0.9905) -->
+      <section class="esaad-box" aria-label="Esaad / Fazaa">
+        <div class="box-label-row">
+          <span class="box-label">Esaad / Fazaa</span>
+          <span class="box-sub">-0.95%</span>
+        </div>
+        <div class="box-value-row">
+          <span id="esaadFazaaValue" class="box-value">990.50</span>
+          <span class="currency-tag">AED</span>
+        </div>
+      </section>
+
+      <!-- 3x2 Recurring Installment Grid (No division formulas shown on tiles) -->
+      <section class="installments-grid" aria-label="Monthly Installments">
+        <!-- Row 1: 3 mnth | 6 mnth -->
+        <div class="installment-tile">
+          <span class="installment-label">3 mnth</span>
+          <span id="inst3Value" class="installment-amount">333.33</span>
+        </div>
+        <div class="installment-tile">
+          <span class="installment-label">6 mnth</span>
+          <span id="inst6Value" class="installment-amount">166.67</span>
+        </div>
+
+        <!-- Row 2: 9 mnth | 12 mnth -->
+        <div class="installment-tile">
+          <span class="installment-label">9 mnth</span>
+          <span id="inst9Value" class="installment-amount">111.11</span>
+        </div>
+        <div class="installment-tile">
+          <span class="installment-label">12 mnth</span>
+          <span id="inst12Value" class="installment-amount">83.33</span>
+        </div>
+
+        <!-- Row 3: 4 mnth | 8 mnth -->
+        <div class="installment-tile">
+          <span class="installment-label">4 mnth</span>
+          <span id="inst4Value" class="installment-amount">250.00</span>
+        </div>
+        <div class="installment-tile">
+          <span class="installment-label">8 mnth</span>
+          <span id="inst8Value" class="installment-amount">125.00</span>
+        </div>
+      </section>
+
+      <!-- Utility Bar: Pop-up Calculator, Log Inquiry & Export .XLS -->
+      <section class="utility-bar" aria-label="Calculator and Inquiry Tools">
+        <button id="openCalcBtn" class="calc-btn" type="button">
+          <span>Calculator</span>
+        </button>
+        <button id="openLogBtn" class="mini-action-btn" type="button">
+          <span>Log</span>
+          <span id="logCountBadge" class="log-badge">0</span>
+        </button>
+        <button id="exportXlsBtn" class="mini-action-btn" type="button" title="Export inquiries to .xls">
+          <span>.XLS</span>
+        </button>
+      </section>
+
+      <!-- 16-Country Currency Grid -->
+      <section id="currencyGrid" class="currency-grid" aria-label="16-Country Currency Conversion"></section>
+
+      <!-- 3D Embossed Numpad -->
+      <section id="numpad" aria-label="Numeric Keypad">
+        <button class="num-key" type="button" data-key="7">7</button>
+        <button class="num-key" type="button" data-key="8">8</button>
+        <button class="num-key" type="button" data-key="9">9</button>
+
+        <button class="num-key" type="button" data-key="4">4</button>
+        <button class="num-key" type="button" data-key="5">5</button>
+        <button class="num-key" type="button" data-key="6">6</button>
+
+        <button class="num-key" type="button" data-key="1">1</button>
+        <button class="num-key" type="button" data-key="2">2</button>
+        <button class="num-key" type="button" data-key="3">3</button>
+
+        <button class="num-key key-action" type="button" data-key=".">.</button>
+        <button class="num-key" type="button" data-key="0">0</button>
+        <button class="num-key key-clear" type="button" data-key="backspace" aria-label="Backspace">⌫</button>
+      </section>
+    </main>
+  </div>
+
+  <!-- Pop-up Calculator Modal -->
+  <div id="calcModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="calcModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <span id="calcModalTitle" class="modal-title">Calculator</span>
+        <button id="closeCalcBtn" class="close-btn" type="button" aria-label="Close calculator">✕</button>
+      </div>
+      <div class="calc-screen">
+        <div id="calcExpr" class="calc-expr"></div>
+        <div id="calcDisplay" class="calc-display">0</div>
+      </div>
+      <div class="calc-pad">
+        <button class="calc-key" type="button" data-calc="C">C</button>
+        <button class="calc-key op" type="button" data-calc="/">÷</button>
+        <button class="calc-key op" type="button" data-calc="*">×</button>
+        <button class="calc-key" type="button" data-calc="DEL">⌫</button>
+
+        <button class="calc-key" type="button" data-calc="7">7</button>
+        <button class="calc-key" type="button" data-calc="8">8</button>
+        <button class="calc-key" type="button" data-calc="9">9</button>
+        <button class="calc-key op" type="button" data-calc="-">−</button>
+
+        <button class="calc-key" type="button" data-calc="4">4</button>
+        <button class="calc-key" type="button" data-calc="5">5</button>
+        <button class="calc-key" type="button" data-calc="6">6</button>
+        <button class="calc-key op" type="button" data-calc="+">+</button>
+
+        <button class="calc-key" type="button" data-calc="1">1</button>
+        <button class="calc-key" type="button" data-calc="2">2</button>
+        <button class="calc-key" type="button" data-calc="3">3</button>
+        <button class="calc-key eq" type="button" data-calc="=">=</button>
+
+        <button class="calc-key" type="button" data-calc="0" style="grid-column: span 2;">0</button>
+        <button class="calc-key" type="button" data-calc=".">.</button>
+        <button class="calc-key op" type="button" id="applyCalcToAedBtn">Use AED</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inquiry Log Modal -->
+  <div id="logModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="logModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <span id="logModalTitle" class="modal-title">Inquiry Log</span>
+        <button id="closeLogBtn" class="close-btn" type="button" aria-label="Close inquiry log">✕</button>
+      </div>
+      <div id="logBanner" class="status-banner"></div>
+      <form id="inquiryForm" class="inquiry-form">
+        <input id="inqCustomer" class="field-input" type="text" placeholder="Customer / Reference note (optional)" maxlength="80" />
+        <input id="inqPlan" class="field-input" type="text" placeholder="Selected option (e.g., Tax Refund, Esaad, 6 mnth)" maxlength="80" />
+        <button type="submit" class="modal-primary-btn">Record Current AED Inquiry</button>
+      </form>
+      <div class="setting-row">
+        <button id="modalExportXlsBtn" class="modal-secondary-btn" type="button" style="flex: 1;">Export .XLS</button>
+        <button id="clearLogsBtn" class="modal-danger-btn" type="button">Clear All</button>
+      </div>
+      <div id="logList" class="log-list"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+    <div class="modal-sheet">
+      <div class="modal-header">
+        <span id="settingsModalTitle" class="modal-title">Settings & Customization</span>
+        <button id="closeSettingsBtn" class="close-btn" type="button" aria-label="Close settings">✕</button>
+      </div>
+      <div id="settingsBanner" class="status-banner"></div>
+
+      <div class="setting-section">
+        <div class="setting-row">
+          <strong>Custom Background Image</strong>
+          <span id="bgStatusText" class="log-meta">Default frosted</span>
+        </div>
+        <input id="bgFileInput" type="file" accept="image/*" class="field-input" />
+        <button id="removeBgBtn" class="modal-danger-btn" type="button">Remove Custom Background</button>
+      </div>
+
+      <div class="setting-section">
+        <div class="setting-row">
+          <strong>Exchange Rate Feed</strong>
+          <span id="rateSourceText" class="log-meta">Every 5s</span>
+        </div>
+        <div id="lastSyncText" class="log-meta">Syncing live AED rates...</div>
+        <button id="forceRefreshRateBtn" class="modal-secondary-btn" type="button">Refresh Rates Now</button>
+      </div>
+
+      <div class="setting-section">
+        <div class="setting-row">
+          <strong>PWA & Standalone Mode</strong>
+          <span id="standaloneStatusText" class="log-meta">Checking...</span>
+        </div>
+        <div class="log-meta">Manifest linked with 192×192 & 512×512 icon definitions for Add to Home Screen.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ========================================================================
+         1. 16-COUNTRY CURRENCY CONFIG & FALLBACK RATES (1 AED = X Target Currency)
+         ======================================================================== */
+      const CURRENCIES = [
+        { code: "USD", flag: "🇺🇸", rate: 0.27229 },
+        { code: "EUR", flag: "🇪🇺", rate: 0.25120 },
+        { code: "GBP", flag: "🇬🇧", rate: 0.21450 },
+        { code: "SAR", flag: "🇸🇦", rate: 1.02110 },
+        { code: "QAR", flag: "🇶🇦", rate: 0.99100 },
+        { code: "KWD", flag: "🇰🇼", rate: 0.08360 },
+        { code: "BHD", flag: "🇧🇭", rate: 0.10239 },
+        { code: "OMR", flag: "🇴🇲", rate: 0.10474 },
+        { code: "INR", flag: "🇮🇳", rate: 22.8500 },
+        { code: "PKR", flag: "🇵🇰", rate: 75.7000 },
+        { code: "PHP", flag: "🇵🇭", rate: 15.9200 },
+        { code: "EGP", flag: "🇪🇬", rate: 13.4500 },
+        { code: "JPY", flag: "🇯🇵", rate: 41.8000 },
+        { code: "CNY", flag: "🇨🇳", rate: 1.96800 },
+        { code: "CAD", flag: "🇨🇦", rate: 0.37950 },
+        { code: "AUD", flag: "🇦🇺", rate: 0.41500 }
+      ];
+
+      const STORAGE_KEYS = {
+        BG_IMAGE: "tax_conv_custom_bg_v1",
+        INQUIRIES: "tax_conv_inquiries_v1",
+        RATES: "tax_conv_cached_rates_v1"
+      };
+
+      const state = {
+        rates: Object.fromEntries(CURRENCIES.map((c) => [c.code, c.rate])),
+        rateSource: "Fallback",
+        lastSync: "",
+        inquiries: [],
+        calcExpr: "",
+        calcCurrent: "0",
+        calcResetNext: false
+      };
+
+      /* ========================================================================
+         2. DOM REFERENCES
+         ======================================================================== */
+      const appShell = document.getElementById("appShell");
+      const appCard = document.getElementById("appCard");
+      const valueInput = document.getElementById("valueInput");
+      const taxRefundValue = document.getElementById("taxRefundValue");
+      const esaadFazaaValue = document.getElementById("esaadFazaaValue");
+      const inst3Value = document.getElementById("inst3Value");
+      const inst6Value = document.getElementById("inst6Value");
+      const inst9Value = document.getElementById("inst9Value");
+      const inst12Value = document.getElementById("inst12Value");
+      const inst4Value = document.getElementById("inst4Value");
+      const inst8Value = document.getElementById("inst8Value");
+      const currencyGrid = document.getElementById("currencyGrid");
+      const numpad = document.getElementById("numpad");
+
+      const rateStatusPill = document.getElementById("rateStatusPill");
+      const rateStatusText = document.getElementById("rateStatusText");
+      const rateSourceText = document.getElementById("rateSourceText");
+      const lastSyncText = document.getElementById("lastSyncText");
+
+      const calcModal = document.getElementById("calcModal");
+      const calcExprEl = document.getElementById("calcExpr");
+      const calcDisplayEl = document.getElementById("calcDisplay");
+
+      const logModal = document.getElementById("logModal");
+      const logCountBadge = document.getElementById("logCountBadge");
+      const logList = document.getElementById("logList");
+      const logBanner = document.getElementById("logBanner");
+      const inquiryForm = document.getElementById("inquiryForm");
+      const inqCustomer = document.getElementById("inqCustomer");
+      const inqPlan = document.getElementById("inqPlan");
+
+      const settingsModal = document.getElementById("settingsModal");
+      const settingsBanner = document.getElementById("settingsBanner");
+      const bgFileInput = document.getElementById("bgFileInput");
+      const bgStatusText = document.getElementById("bgStatusText");
+      const standaloneStatusText = document.getElementById("standaloneStatusText");
+
+      /* ========================================================================
+         3. DYNAMIC MANIFEST & PWA STANDALONE DETECTION
+         ======================================================================== */
+      function setupInlineManifest() {
+        try {
+          const basePath = window.location.pathname.endsWith("/")
+            ? window.location.pathname
+            : window.location.pathname.replace(/[^/]*$/, "");
+          const manifestObj = {
+            name: "TAX REFUND AND CURRENCY CONVERTER",
+            short_name: "Tax Converter",
+            start_url: basePath || "./",
+            scope: basePath || "./",
+            display: "standalone",
+            orientation: "portrait",
+            background_color: "#0f172a",
+            theme_color: "#0f172a",
+            icons: [
+              {
+                src: "./icon-192.png",
+                sizes: "192x192",
+                type: "image/png"
+              },
+              {
+                src: "./icon-512.png",
+                sizes: "512x512",
+                type: "image/png",
+                purpose: "any maskable"
+              }
+            ]
+          };
+          const blob = new Blob([JSON.stringify(manifestObj)], { type: "application/manifest+json" });
+          const blobUrl = URL.createObjectURL(blob);
+          const manifestLink = document.getElementById("manifestLink");
+          if (manifestLink) {
+            manifestLink.setAttribute("href", blobUrl);
+          }
+        } catch (err) {
+          // Fallback static ./manifest.webmanifest link remains active
+        }
+
+        const isStandalone =
+          window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone === true;
+        standaloneStatusText.textContent = isStandalone ? "Standalone App" : "Browser / Web";
+      }
+
+      /* ========================================================================
+         4. FORMATTING & CORE CALCULATIONS
+         ======================================================================== */
+      function parseAedInput() {
+        const cleaned = String(valueInput.value || "0").replace(/[^0-9.]/g, "");
+        const num = parseFloat(cleaned);
+        return Number.isFinite(num) && num >= 0 ? num : 0;
+      }
+
+      function formatMoney(amount, decimals = 2) {
+        if (!Number.isFinite(amount)) return "0.00";
+        return amount.toLocaleString("en-US", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        });
+      }
+
+      function formatConvertedCurrency(amount, code) {
+        if (!Number.isFinite(amount)) return "0.00";
+        const decimals = ["JPY", "INR", "PKR", "PHP", "EGP"].includes(code)
+          ? 2
+          : ["KWD", "BHD", "OMR"].includes(code)
+          ? 3
+          : 2;
+        return amount.toLocaleString("en-US", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        });
+      }
+
+      function renderCurrencyGrid(aed) {
+        const tiles = currencyGrid.querySelectorAll(".currency-tile");
+        CURRENCIES.forEach((curr, idx) => {
+          const rate = state.rates[curr.code] ?? curr.rate;
+          const converted = aed * rate;
+          const tile = tiles[idx];
+          if (tile) {
+            const valEl = tile.querySelector(".currency-val");
+            if (valEl) {
+              valEl.textContent = formatConvertedCurrency(converted, curr.code);
+            }
+          }
+        });
+      }
+
+      function initCurrencyGridDom() {
+        currencyGrid.innerHTML = "";
+        CURRENCIES.forEach((curr) => {
+          const tile = document.createElement("div");
+          tile.className = "currency-tile";
+          tile.title = `1 AED = ${state.rates[curr.code] ?? curr.rate} ${curr.code}`;
+          tile.innerHTML = `
+            <div class="currency-top">
+              <span class="currency-flag">${curr.flag}</span>
+              <span class="currency-code">${curr.code}</span>
+            </div>
+            <div class="currency-val">0.00</div>
+          `;
+          currencyGrid.appendChild(tile);
+        });
+      }
+
+      function recalculateAll() {
+        const aed = parseAedInput();
+
+        // 1. Tax Refund: inputAED * 0.05 * 0.81
+        const taxRefund = aed * 0.05 * 0.81;
+        taxRefundValue.textContent = formatMoney(taxRefund, 2);
+
+        // 2. Esaad / Fazaa: inputAED * 0.9905 (input AED minus 0.95%)
+        const esaadFazaa = aed * 0.9905;
+        esaadFazaaValue.textContent = formatMoney(esaadFazaa, 2);
+
+        // 3. Recurring Installments: inputAED / N (no formula text shown)
+        inst3Value.textContent = formatMoney(aed / 3, 2);
+        inst6Value.textContent = formatMoney(aed / 6, 2);
+        inst9Value.textContent = formatMoney(aed / 9, 2);
+        inst12Value.textContent = formatMoney(aed / 12, 2);
+        inst4Value.textContent = formatMoney(aed / 4, 2);
+        inst8Value.textContent = formatMoney(aed / 8, 2);
+
+        // 4. 16-Country Currency Grid
+        renderCurrencyGrid(aed);
+      }
+
+      /* ========================================================================
+         5. 3D EMBOSSED NUMPAD & KEYBOARD HANDLING
+         ======================================================================== */
+      function applyNumpadKey(key) {
+        let current = String(valueInput.value || "");
+        if (current === "0" && key !== "." && key !== "backspace") {
+          current = "";
+        }
+
+        if (key === "backspace") {
+          current = current.slice(0, -1);
+          valueInput.value = current === "" ? "0" : current;
+        } else if (key === ".") {
+          if (current === "") {
+            valueInput.value = "0.";
+          } else if (!current.includes(".")) {
+            valueInput.value = current + ".";
+          }
+        } else if (/^[0-9]$/.test(key)) {
+          const parts = current.split(".");
+          if (parts.length === 2 && parts[1].length >= 2) {
+            return;
+          }
+          if (current.replace(".", "").length >= 10) {
+            return;
+          }
+          valueInput.value = current + key;
+        }
+
+        recalculateAll();
+      }
+
+      numpad.addEventListener("click", (e) => {
+        const btn = e.target.closest(".num-key");
+        if (!btn) return;
+        const key = btn.getAttribute("data-key");
+        applyNumpadKey(key);
+      });
+
+      valueInput.addEventListener("input", () => {
+        const sanitized = valueInput.value
+          .replace(/[^0-9.]/g, "")
+          .replace(/(\..*)\./g, "$1");
+        valueInput.value = sanitized;
+        recalculateAll();
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (
+          calcModal.classList.contains("is-open") ||
+          logModal.classList.contains("is-open") ||
+          settingsModal.classList.contains("is-open") ||
+          document.activeElement === inqCustomer ||
+          document.activeElement === inqPlan
+        ) {
+          return;
+        }
+
+        if (/^[0-9.]$/.test(e.key)) {
+          e.preventDefault();
+          applyNumpadKey(e.key);
+          const matchingBtn = numpad.querySelector(`[data-key="${CSS.escape(e.key)}"]`);
+          if (matchingBtn) {
+            matchingBtn.classList.add("is-pressed");
+            setTimeout(() => matchingBtn.classList.remove("is-pressed"), 110);
+          }
+        } else if (e.key === "Backspace") {
+          e.preventDefault();
+          applyNumpadKey("backspace");
+          const bsBtn = numpad.querySelector('[data-key="backspace"]');
+          if (bsBtn) {
+            bsBtn.classList.add("is-pressed");
+            setTimeout(() => bsBtn.classList.remove("is-pressed"), 110);
+          }
+        }
+      });
+
+      /* ========================================================================
+         6. LIVE CURRENCY RATE SYNC EVERY 5 SECONDS (open.er-api + fawazahmed0)
+         ======================================================================== */
+      function setRatePillStatus(mode, label) {
+        rateStatusPill.classList.remove("is-syncing", "is-fallback");
+        if (mode === "syncing") rateStatusPill.classList.add("is-syncing");
+        if (mode === "fallback") rateStatusPill.classList.add("is-fallback");
+        rateStatusText.textContent = label;
+      }
+
+      function applyRateMap(rawRates, sourceLabel) {
+        let updatedCount = 0;
+        CURRENCIES.forEach((curr) => {
+          const val = rawRates[curr.code] ?? rawRates[curr.code.toLowerCase()];
+          if (typeof val === "number" && Number.isFinite(val) && val > 0) {
+            state.rates[curr.code] = val;
+            updatedCount += 1;
+          }
+        });
+        if (updatedCount > 0) {
+          state.rateSource = sourceLabel;
+          state.lastSync = new Date().toLocaleTimeString([], { hour12: false });
+          try {
+            localStorage.setItem(
+              STORAGE_KEYS.RATES,
+              JSON.stringify({ rates: state.rates, source: sourceLabel, time: state.lastSync })
+            );
+          } catch (err) {
+            // Ignore storage quota errors
+          }
+          setRatePillStatus("live", "LIVE 5s");
+          rateSourceText.textContent = sourceLabel;
+          lastSyncText.textContent = `Updated at ${state.lastSync} (${updatedCount}/16 currencies)`;
+          recalculateAll();
+        }
+      }
+
+      async function fetchOpenErApi() {
+        const res = await fetch("https://open.er-api.com/v6/latest/AED", { cache: "no-store" });
+        if (!res.ok) throw new Error("open.er-api failed");
+        const data = await res.json();
+        if (!data || data.result !== "success" || !data.rates) {
+          throw new Error("Invalid open.er-api payload");
+        }
+        return data.rates;
+      }
+
+      async function fetchFawazApi() {
+        const urls = [
+          "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/aed.json",
+          "https://latest.currency-api.pages.dev/v1/currencies/aed.json"
+        ];
+        for (const url of urls) {
+          try {
+            const res = await fetch(url, { cache: "no-store" });
+            if (!res.ok) continue;
+            const data = await res.json();
+            if (data && data.aed && typeof data.aed === "object") {
+              return data.aed;
+            }
+          } catch (err) {
+            // Try next mirror
+          }
+        }
+        throw new Error("fawazahmed0 failed");
+      }
+
+      async function refreshExchangeRates(isManual = false) {
+        if (isManual) {
+          setRatePillStatus("syncing", "SYNCING");
+        }
+        try {
+          const rates = await fetchOpenErApi();
+          applyRateMap(rates, "open.er-api.com");
+          return;
+        } catch (errPrimary) {
+          try {
+            const fallbackRates = await fetchFawazApi();
+            applyRateMap(fallbackRates, "fawazahmed0 API");
+            return;
+          } catch (errSecondary) {
+            try {
+              const cachedRaw = localStorage.getItem(STORAGE_KEYS.RATES);
+              if (cachedRaw) {
+                const cached = JSON.parse(cachedRaw);
+                if (cached && cached.rates) {
+                  Object.assign(state.rates, cached.rates);
+                  state.rateSource = `Cached (${cached.source || "Offline"})`;
+                  state.lastSync = cached.time || "Cached";
+                  setRatePillStatus("fallback", "CACHED");
+                  rateSourceText.textContent = state.rateSource;
+                  lastSyncText.textContent = `Using saved rates (${state.lastSync})`;
+                  recalculateAll();
+                  return;
+                }
+              }
+            } catch (errCache) {
+              // Ignore
+            }
+            state.rateSource = "Built-in Fallback";
+            setRatePillStatus("fallback", "OFFLINE");
+            rateSourceText.textContent = state.rateSource;
+            lastSyncText.textContent = "Using built-in AED fallback rates";
+            recalculateAll();
+          }
+        }
+      }
+
+      /* ========================================================================
+         7. POP-UP CALCULATOR MODAL
+         ======================================================================== */
+      function openModal(modalEl) {
+        modalEl.classList.add("is-open");
+      }
+
+      function closeModal(modalEl) {
+        modalEl.classList.remove("is-open");
+      }
+
+      function updateCalcScreen() {
+        calcExprEl.textContent = state.calcExpr;
+        calcDisplayEl.textContent = state.calcCurrent || "0";
+      }
+
+      function evaluateCalcExpression(exprStr) {
+        const sanitized = exprStr.replace(/[^0-9+\-*/.]/g, "");
+        if (!sanitized || /[+\-*/.]$/.test(sanitized)) return null;
+        const result = Function(`"use strict"; return (${sanitized});`)();
+        if (typeof result !== "number" || !Number.isFinite(result)) return null;
+        return Math.round(result * 1000000) / 1000000;
+      }
+
+      function handleCalcInput(token) {
+        if (token === "C") {
+          state.calcExpr = "";
+          state.calcCurrent = "0";
+          state.calcResetNext = false;
+          updateCalcScreen();
+          return;
+        }
+
+        if (token === "DEL") {
+          if (state.calcResetNext) {
+            state.calcCurrent = "0";
+            state.calcResetNext = false;
+          } else {
+            state.calcCurrent = state.calcCurrent.length > 1 ? state.calcCurrent.slice(0, -1) : "0";
+          }
+          updateCalcScreen();
+          return;
+        }
+
+        if (["+", "-", "*", "/"].includes(token)) {
+          const baseVal = state.calcCurrent === "" ? "0" : state.calcCurrent;
+          if (state.calcExpr && !state.calcResetNext) {
+            const prevEval = evaluateCalcExpression(state.calcExpr + baseVal);
+            if (prevEval !== null) {
+              state.calcExpr = `${prevEval} ${token} `;
+              state.calcCurrent = String(prevEval);
+              state.calcResetNext = true;
+              updateCalcScreen();
+              return;
+            }
+          }
+          state.calcExpr = `${baseVal} ${token} `;
+          state.calcResetNext = true;
+          updateCalcScreen();
+          return;
+        }
+
+        if (token === "=") {
+          const fullExpr = state.calcExpr + (state.calcCurrent || "0");
+          const result = evaluateCalcExpression(fullExpr);
+          if (result !== null) {
+            state.calcExpr = `${fullExpr} =`;
+            state.calcCurrent = String(result);
+            state.calcResetNext = true;
+          }
+          updateCalcScreen();
+          return;
+        }
+
+        if (/^[0-9.]$/.test(token)) {
+          if (state.calcResetNext) {
+            state.calcCurrent = token === "." ? "0." : token;
+            state.calcResetNext = false;
+          } else {
+            if (token === "." && state.calcCurrent.includes(".")) return;
+            state.calcCurrent = state.calcCurrent === "0" && token !== "." ? token : state.calcCurrent + token;
+          }
+          updateCalcScreen();
+        }
+      }
+
+      document.getElementById("openCalcBtn").addEventListener("click", () => {
+        const currentAed = parseAedInput();
+        state.calcCurrent = currentAed > 0 ? String(currentAed) : "0";
+        state.calcExpr = "";
+        state.calcResetNext = false;
+        updateCalcScreen();
+        openModal(calcModal);
+      });
+
+      document.getElementById("closeCalcBtn").addEventListener("click", () => closeModal(calcModal));
+
+      calcModal.addEventListener("click", (e) => {
+        if (e.target === calcModal) closeModal(calcModal);
+        const keyBtn = e.target.closest(".calc-key");
+        if (!keyBtn) return;
+        const token = keyBtn.getAttribute("data-calc");
+        if (token) handleCalcInput(token);
+      });
+
+      document.getElementById("applyCalcToAedBtn").addEventListener("click", () => {
+        let val = parseFloat(state.calcCurrent);
+        if (!Number.isFinite(val) && state.calcExpr) {
+          val = evaluateCalcExpression(state.calcExpr);
+        }
+        if (typeof val === "number" && Number.isFinite(val) && val >= 0) {
+          const rounded = Math.round(val * 100) / 100;
+          valueInput.value = String(rounded);
+          recalculateAll();
+        }
+        closeModal(calcModal);
+      });
+
+      /* ========================================================================
+         8. INQUIRY LOGGING & .XLS EXPORT
+         ======================================================================== */
+      function showBanner(el, msg) {
+        el.textContent = msg;
+        el.classList.add("is-visible");
+        setTimeout(() => el.classList.remove("is-visible"), 2600);
+      }
+
+      function loadInquiries() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.INQUIRIES);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) state.inquiries = parsed;
+          }
+        } catch (err) {
+          state.inquiries = [];
+        }
+        renderInquiries();
+      }
+
+      function saveInquiries() {
+        try {
+          localStorage.setItem(STORAGE_KEYS.INQUIRIES, JSON.stringify(state.inquiries));
+        } catch (err) {
+          // Ignore storage quota errors
+        }
+        renderInquiries();
+      }
+
+      function renderInquiries() {
+        logCountBadge.textContent = String(state.inquiries.length);
+        if (state.inquiries.length === 0) {
+          logList.innerHTML = `<div class="log-item"><span class="log-meta">No inquiries recorded yet.</span></div>`;
+          return;
+        }
+        logList.innerHTML = state.inquiries
+          .slice()
+          .reverse()
+          .map(
+            (item) => `
+            <div class="log-item">
+              <div>
+                <div><strong>${escapeHtml(item.aed)} AED</strong> · Refund ${escapeHtml(item.taxRefund)} · Esaad ${escapeHtml(item.esaad)}</div>
+                <div class="log-meta">${escapeHtml(item.note || "General Inquiry")} · ${escapeHtml(item.timestamp)}</div>
+              </div>
+            </div>
+          `
+          )
+          .join("");
+      }
+
+      function escapeHtml(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function exportInquiriesToXls() {
+        if (state.inquiries.length === 0) {
+          showBanner(logBanner, "No inquiry records to export.");
+          return;
+        }
+
+        const rowsHtml = state.inquiries
+          .map(
+            (row) => `
+            <tr>
+              <td>${escapeHtml(row.timestamp)}</td>
+              <td>${escapeHtml(row.note)}</td>
+              <td>${escapeHtml(row.aed)}</td>
+              <td>${escapeHtml(row.taxRefund)}</td>
+              <td>${escapeHtml(row.esaad)}</td>
+              <td>${escapeHtml(row.m3)}</td>
+              <td>${escapeHtml(row.m4)}</td>
+              <td>${escapeHtml(row.m6)}</td>
+              <td>${escapeHtml(row.m8)}</td>
+              <td>${escapeHtml(row.m9)}</td>
+              <td>${escapeHtml(row.m12)}</td>
+            </tr>
+          `
+          )
+          .join("");
+
+        const excelHtml = `
+          <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                xmlns:x="urn:schemas-microsoft-com:office:excel"
+                xmlns="http://www.w3.org/TR/REC-html40">
+          <head><meta charset="UTF-8" /></head>
+          <body>
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Note / Option</th>
+                  <th>AED</th>
+                  <th>Tax Refund</th>
+                  <th>Esaad / Fazaa</th>
+                  <th>3 mnth</th>
+                  <th>4 mnth</th>
+                  <th>6 mnth</th>
+                  <th>8 mnth</th>
+                  <th>9 mnth</th>
+                  <th>12 mnth</th>
+                </tr>
+              </thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </body>
+          </html>
+        `;
+
+        const blob = new Blob([excelHtml], { type: "application/vnd.ms-excel;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `tax-refund-inquiries-${new Date().toISOString().slice(0, 10)}.xls`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        showBanner(logBanner, "Exported .XLS inquiry log.");
+      }
+
+      document.getElementById("openLogBtn").addEventListener("click", () => {
+        renderInquiries();
+        openModal(logModal);
+      });
+      document.getElementById("closeLogBtn").addEventListener("click", () => closeModal(logModal));
+      logModal.addEventListener("click", (e) => {
+        if (e.target === logModal) closeModal(logModal);
+      });
+
+      inquiryForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const aed = parseAedInput();
+        const customer = inqCustomer.value.trim();
+        const plan = inqPlan.value.trim();
+        const noteParts = [customer, plan].filter(Boolean);
+
+        state.inquiries.push({
+          timestamp: new Date().toLocaleString(),
+          note: noteParts.join(" — ") || "AED Calculation",
+          aed: formatMoney(aed, 2),
+          taxRefund: formatMoney(aed * 0.05 * 0.81, 2),
+          esaad: formatMoney(aed * 0.9905, 2),
+          m3: formatMoney(aed / 3, 2),
+          m4: formatMoney(aed / 4, 2),
+          m6: formatMoney(aed / 6, 2),
+          m8: formatMoney(aed / 8, 2),
+          m9: formatMoney(aed / 9, 2),
+          m12: formatMoney(aed / 12, 2)
+        });
+
+        saveInquiries();
+        inqCustomer.value = "";
+        inqPlan.value = "";
+        showBanner(logBanner, "Inquiry recorded.");
+      });
+
+      document.getElementById("exportXlsBtn").addEventListener("click", () => {
+        if (state.inquiries.length === 0) {
+          const aed = parseAedInput();
+          state.inquiries.push({
+            timestamp: new Date().toLocaleString(),
+            note: "Current AED Snapshot",
+            aed: formatMoney(aed, 2),
+            taxRefund: formatMoney(aed * 0.05 * 0.81, 2),
+            esaad: formatMoney(aed * 0.9905, 2),
+            m3: formatMoney(aed / 3, 2),
+            m4: formatMoney(aed / 4, 2),
+            m6: formatMoney(aed / 6, 2),
+            m8: formatMoney(aed / 8, 2),
+            m9: formatMoney(aed / 9, 2),
+            m12: formatMoney(aed / 12, 2)
+          });
+          saveInquiries();
+        }
+        exportInquiriesToXls();
+      });
+
+      document.getElementById("modalExportXlsBtn").addEventListener("click", exportInquiriesToXls);
+
+      document.getElementById("clearLogsBtn").addEventListener("click", () => {
+        state.inquiries = [];
+        saveInquiries();
+        showBanner(logBanner, "Inquiry log cleared.");
+      });
+
+      /* ========================================================================
+         9. SETTINGS & CUSTOM BACKGROUND IMAGE UPLOAD
+         ======================================================================== */
+      function applyCustomBackground(dataUrl) {
+        if (dataUrl) {
+          document.documentElement.style.setProperty("--custom-bg-image", `url("${dataUrl}")`);
+          document.body.classList.add("has-bg");
+          appShell.classList.add("has-bg");
+          appCard.classList.add("has-bg");
+          bgStatusText.textContent = "Custom active";
+        } else {
+          document.documentElement.style.setProperty("--custom-bg-image", "none");
+          document.body.classList.remove("has-bg");
+          appShell.classList.remove("has-bg");
+          appCard.classList.remove("has-bg");
+          bgStatusText.textContent = "Default frosted";
+        }
+      }
+
+      function loadSavedBackground() {
+        try {
+          const savedBg = localStorage.getItem(STORAGE_KEYS.BG_IMAGE);
+          if (savedBg) {
+            applyCustomBackground(savedBg);
+          }
+        } catch (err) {
+          // Ignore storage error
+        }
+      }
+
+      bgFileInput.addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = typeof reader.result === "string" ? reader.result : "";
+          if (!result) return;
+          applyCustomBackground(result);
+          try {
+            localStorage.setItem(STORAGE_KEYS.BG_IMAGE, result);
+            showBanner(settingsBanner, "Custom background applied.");
+          } catch (err) {
+            showBanner(settingsBanner, "Background applied for this session.");
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById("removeBgBtn").addEventListener("click", () => {
+        bgFileInput.value = "";
+        applyCustomBackground("");
+        try {
+          localStorage.removeItem(STORAGE_KEYS.BG_IMAGE);
+        } catch (err) {
+          // Ignore
+        }
+        showBanner(settingsBanner, "Restored default frosted theme.");
+      });
+
+      document.getElementById("forceRefreshRateBtn").addEventListener("click", () => {
+        refreshExchangeRates(true);
+        showBanner(settingsBanner, "Refreshing exchange rates...");
+      });
+
+      document.getElementById("openSettingsBtn").addEventListener("click", () => openModal(settingsModal));
+      document.getElementById("closeSettingsBtn").addEventListener("click", () => closeModal(settingsModal));
+      settingsModal.addEventListener("click", (e) => {
+        if (e.target === settingsModal) closeModal(settingsModal);
+      });
+
+      /* ========================================================================
+         10. INITIALIZATION & 5-SECOND LIVE RATE POLLING
+         ======================================================================== */
+      setupInlineManifest();
+      initCurrencyGridDom();
+      loadSavedBackground();
+      loadInquiries();
+      recalculateAll();
+      refreshExchangeRates(false);
+
+      setInterval(() => {
+        refreshExchangeRates(false);
+      }, 5000);
+    })();
+  </script>
+</body>
+</html>
